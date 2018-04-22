@@ -1,14 +1,6 @@
 # Floyd - helps you type repeating things
 ---
 
-## Building
-```shell
- mkdir build
- cd build
- cmake ../src
- make
- ```
-
 ## Dependencies
 Floyd requires `xdotool`.
 
@@ -17,6 +9,15 @@ Floyd requires `xdotool`.
 
 ### Arch
 `sudo pacman -S xdotool`
+
+
+## Building
+```shell
+ mkdir build
+ cd build
+ cmake ../src
+ make
+ ```
 
 ## Configuration
 Write a file `.floyd` in your home. Each line is an entry. Optionally, you can type a "\n"
