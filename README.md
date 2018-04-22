@@ -1,9 +1,9 @@
-Floyd - helps you type repeating things
+# Floyd - helps you type repeating things
 ---
 
-Installation
---
+## Installation
+```shell
  mkdir build
  cd build
  cmake ..
- make
+ make```
