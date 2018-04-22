@@ -1,5 +1,5 @@
 language: cpp
-install: sudo apt -y install qt5-default
+install: sudo apt -y install qt5-default g++-7
 compiler: g++
 script:
     - mkdir build
