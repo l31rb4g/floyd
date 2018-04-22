@@ -10,5 +10,6 @@
  ```
 
 ## Configuration
-Write a file `.floyd` in your home. Each line is an entry.
+Write a file `.floyd` in your home. Each line is an entry. You can type a "\n"
+in the end of the line.
 

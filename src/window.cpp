@@ -17,10 +17,10 @@ using namespace std;
 Window::Window(QWidget *parent): QWidget(parent) {
     int line_height = 45;
     selected = 0;
+
     string lineStyle = "color:#fff; padding:0 5px;";
     defaultLineStyle = lineStyle + "background:#333;";
     selectedLineStyle = lineStyle + "background:#222;";
-
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
     layout = new QVBoxLayout;
@@ -59,13 +59,6 @@ int Window::readFile(){
 
 
 void Window::insertLine(int lc, const char *line){
-
-    //if (regex_search(line, regex("\\\\n$"))){
-        //line = regex_replace(line, regex("\\\\n$"), "").c_str();
-        //cout << "new line\n";
-        //cout << line << endl;
-    //}
-
     string label_line = to_string(lc) + ". " + line;
     QLabel *label = new QLabel(label_line.c_str());
     string style;
