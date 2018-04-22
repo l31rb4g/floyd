@@ -16,7 +16,7 @@ Window::Window(QWidget *parent): QWidget(parent) {
     string lineStyle = "color:#fff; padding:0 5px;";
     defaultLineStyle = lineStyle + "background:#333;";
     selectedLineStyle = lineStyle + "background:#222;";
-    
+
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
     layout = new QVBoxLayout;
@@ -27,23 +27,22 @@ Window::Window(QWidget *parent): QWidget(parent) {
     palette->setColor(QPalette::Background, QColor("#333333"));
     setPalette(*palette);
 
-    int line_count = readFile();
+    line_count = readFile();
     setFixedSize(300, line_height * line_count);
     setLayout(layout);
 }
 
 
 int Window::readFile(){
-    int line_count = 0;
+    int lc = 0;
     string line;
     string file_path = "/home/l31rb4g/.floyd";
     ifstream f(file_path);
     if (f.is_open()){
-        cout << "File opened\n";
         while (getline(f, line)){
             if (line != ""){
-                line_count++;
-                insertLine(line_count, line.c_str());
+                lc++;
+                insertLine(lc, line.c_str());
             }
         }
         f.close();
@@ -51,16 +50,16 @@ int Window::readFile(){
         cout << "Unable to open file " << file_path << "\n";
     }
 
-    return line_count;
+    return lc;
 }
 
 
-void Window::insertLine(int line_count, const char *line){
-    string label_line = to_string(line_count) + ". " + line;
+void Window::insertLine(int lc, const char *line){
+    string label_line = to_string(lc) + ". " + line;
     QLabel *label = new QLabel(label_line.c_str());
     string style;
 
-    if (line_count == 1){
+    if (lc == 1){
         style += selectedLineStyle;
     } else {
         style += defaultLineStyle;
@@ -69,20 +68,33 @@ void Window::insertLine(int line_count, const char *line){
     label->setStyleSheet(style.c_str());
     label->setMargin(0);
     labels.push_back(label);
+    lines.push_back(line);
     layout->addWidget(label);
 }
 
 
 void Window::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Down && selected < labels.size()-1) {
-        selected++;
         clearSelected();
+        selected++;
         labels[selected]->setStyleSheet(selectedLineStyle.c_str());
     }
     else if (event->key() == Qt::Key_Up && selected > 0) {
-        selected--;
         clearSelected();
+        selected--;
         labels[selected]->setStyleSheet(selectedLineStyle.c_str());
+    }
+    else if (event->key() >= 48 && event->key() <= 57){
+        int number = event->key() - 48;
+        clearSelected();
+        selected = number - 1;
+        if (number <= line_count){
+            writeLine(number - 1);
+        } else {
+            close();
+        }
+    } else if (event->key() == Qt::Key_Return) {
+        writeLine(selected);
     }
 }
 
@@ -91,6 +103,12 @@ void Window::clearSelected() {
     for (int i=0; i<labels.size(); i++){
         labels[i]->setStyleSheet(defaultLineStyle.c_str());
     }
+}
+
+
+void Window::writeLine(int index){
+    cout << lines[index] << "\n";
+    close();
 }
  
 //void Window::keyReleaseEvent(QKeyEvent *event) {
