@@ -9,7 +9,7 @@
  make
  ```
 
-### Dependencies
+## Dependencies
 Floyd requires `xdotool`.
 
 ## Configuration
