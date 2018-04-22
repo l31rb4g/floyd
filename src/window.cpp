@@ -6,6 +6,9 @@
 #include <QPalette>
 #include <QLabel>
 #include <QKeyEvent>
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
 #include "window.h"
 using namespace std;
 
@@ -36,7 +39,7 @@ Window::Window(QWidget *parent): QWidget(parent) {
 int Window::readFile(){
     int lc = 0;
     string line;
-    string file_path = "/home/l31rb4g/.floyd";
+    string file_path = getUserHome() + "/.floyd";
     ifstream f(file_path);
     if (f.is_open()){
         while (getline(f, line)){
@@ -107,7 +110,15 @@ void Window::clearSelected() {
 
 
 void Window::writeLine(int index){
-    cout << lines[index] << "\n";
     close();
+    string cmd = "xdotool type " + lines[index];
+    popen(cmd.c_str(), "r");
+}
+
+
+string Window::getUserHome(){
+    struct passwd *pw = getpwuid(getuid());
+    const char *homedir = pw->pw_dir;
+    return homedir;
 }
 

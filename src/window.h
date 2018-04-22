@@ -25,5 +25,6 @@ class Window: public QWidget {
         void keyPressEvent(QKeyEvent *);
         void clearSelected();
         void writeLine(int index);
+        string getUserHome();
 
 };
