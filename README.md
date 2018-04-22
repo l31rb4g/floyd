@@ -4,10 +4,10 @@
 ## Dependencies
 Floyd requires `xdotool`.
 
-### Ubuntu
+#### Ubuntu
 `sudo apt install xdotool`
 
-### Arch
+#### Arch
 `sudo pacman -S xdotool`
 
 
