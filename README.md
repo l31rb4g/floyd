@@ -1,6 +1,8 @@
 # Floyd - helps you type repeating things
 ---
 
+https://travis-ci.org/l31rb4g/floyd.svg?branch=master
+
 ## Dependencies
 Floyd requires `xdotool`.
 
