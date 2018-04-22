@@ -15,5 +15,4 @@ script:
     - mkdir build
     - cd build
     - cmake ../src
-    - g++ --version
     - make
