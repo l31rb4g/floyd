@@ -1,5 +1,5 @@
 language: cpp
-install: sudo apt -y install qt5
+install: sudo apt -y install qt5-default
 script:
     - mkdir build
     - cd build
