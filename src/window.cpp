@@ -110,9 +110,4 @@ void Window::writeLine(int index){
     cout << lines[index] << "\n";
     close();
 }
- 
-//void Window::keyReleaseEvent(QKeyEvent *event) {
-    //if(event->key() == Qt::Key_) {
-        //cout << "You released ESC" << "\n";;
-    //}
-//}
+
