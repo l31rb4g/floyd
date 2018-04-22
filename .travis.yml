@@ -5,4 +5,4 @@ script:
     - cd build
     - cmake ../src
     - make
-compiler: gcc
+compiler: g++
