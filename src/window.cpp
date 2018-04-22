@@ -12,7 +12,10 @@ using namespace std;
 
 Window::Window(QWidget *parent): QWidget(parent) {
     int line_height = 45;
-    selected = 1;
+    selected = 0;
+    string lineStyle = "color:#fff; padding:0 5px;";
+    defaultLineStyle = lineStyle + "background:#333;";
+    selectedLineStyle = lineStyle + "background:#222;";
     
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
@@ -55,21 +58,38 @@ int Window::readFile(){
 void Window::insertLine(int line_count, const char *line){
     string label_line = to_string(line_count) + ". " + line;
     QLabel *label = new QLabel(label_line.c_str());
-    string style = "color:#fff;padding:0 5px;";
+    string style;
+
     if (line_count == 1){
-        style += "background: #222";
+        style += selectedLineStyle;
     } else {
-        style += "background: #2c2c2c";
+        style += defaultLineStyle;
     }
 
     label->setStyleSheet(style.c_str());
     label->setMargin(0);
+    labels.push_back(label);
     layout->addWidget(label);
 }
 
+
 void Window::keyPressEvent(QKeyEvent *event) {
-    if(event->key() == Qt::Key_Up) {
-        cout << "You pressed UP" << "\n";
+    if (event->key() == Qt::Key_Down && selected < labels.size()-1) {
+        selected++;
+        clearSelected();
+        labels[selected]->setStyleSheet(selectedLineStyle.c_str());
+    }
+    else if (event->key() == Qt::Key_Up && selected > 0) {
+        selected--;
+        clearSelected();
+        labels[selected]->setStyleSheet(selectedLineStyle.c_str());
+    }
+}
+
+
+void Window::clearSelected() {
+    for (int i=0; i<labels.size(); i++){
+        labels[i]->setStyleSheet(defaultLineStyle.c_str());
     }
 }
  
