@@ -32,7 +32,11 @@ Window::Window(QWidget *parent): QWidget(parent) {
     setPalette(*palette);
 
     line_count = readFile();
-    setFixedSize(300, line_height * line_count);
+    int height = line_height * line_count;
+    if (height == 0){
+        height = line_height;
+    }
+    setFixedSize(300, line_height);
     setLayout(layout);
 }
 
