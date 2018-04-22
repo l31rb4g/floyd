@@ -1,7 +1,17 @@
 language: cpp
-install: sudo apt -y install qt5-default g++
+dist: trusty
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-7
+      - g++-7
+install: sudo apt -y install qt5-default
 compiler: g++
 script:
+    - export CC=gcc-7
+    - export CXX=g++-7
     - mkdir build
     - cd build
     - cmake ../src
