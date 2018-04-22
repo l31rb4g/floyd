@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include <regex>
 #include "window.h"
 using namespace std;
 
@@ -58,6 +59,13 @@ int Window::readFile(){
 
 
 void Window::insertLine(int lc, const char *line){
+
+    //if (regex_search(line, regex("\\\\n$"))){
+        //line = regex_replace(line, regex("\\\\n$"), "").c_str();
+        //cout << "new line\n";
+        //cout << line << endl;
+    //}
+
     string label_line = to_string(lc) + ". " + line;
     QLabel *label = new QLabel(label_line.c_str());
     string style;
@@ -77,20 +85,22 @@ void Window::insertLine(int lc, const char *line){
 
 
 void Window::keyPressEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key_Down && selected < labels.size()-1) {
+    int key = event->key();
+
+    if (key == Qt::Key_Down && selected < labels.size()-1) {
         clearSelected();
         selected++;
         labels[selected]->setStyleSheet(selectedLineStyle.c_str());
     }
-    else if (event->key() == Qt::Key_Up && selected > 0) {
+    else if (key == Qt::Key_Up && selected > 0) {
         clearSelected();
         selected--;
         labels[selected]->setStyleSheet(selectedLineStyle.c_str());
     }
-    else if (event->key() == Qt::Key_Return) {
+    else if (key == Qt::Key_Return) {
         writeLine(selected);
     }
-    else if (event->key() == Qt::Key_Escape) {
+    else if (key  == Qt::Key_Escape || key == Qt::Key_Q) {
         close();
     }
 }
@@ -118,8 +128,16 @@ void Window::clearSelected() {
 
 void Window::writeLine(int index){
     close();
-    string cmd = "xdotool type " + lines[index];
-    popen(cmd.c_str(), "r");
+    string line = lines[index];
+    if (line != ""){
+        string cmd2;
+        if (regex_search(line, regex("\\\\n$"))){
+            line = regex_replace(line, regex("\\\\n$"), "");
+            cmd2 = " && xdotool key KP_Enter";
+        }
+        string cmd = "xdotool type " + line + cmd2;
+        popen(cmd.c_str(), "r");
+    }
 }
 
 
