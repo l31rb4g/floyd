@@ -87,7 +87,16 @@ void Window::keyPressEvent(QKeyEvent *event) {
         selected--;
         labels[selected]->setStyleSheet(selectedLineStyle.c_str());
     }
-    else if (event->key() >= 48 && event->key() <= 57){
+    else if (event->key() == Qt::Key_Return) {
+        writeLine(selected);
+    }
+    else if (event->key() == Qt::Key_Escape) {
+        close();
+    }
+}
+
+void Window::keyReleaseEvent(QKeyEvent *event) {
+    if (event->key() >= 48 && event->key() <= 57){
         int number = event->key() - 48;
         clearSelected();
         selected = number - 1;
@@ -96,8 +105,6 @@ void Window::keyPressEvent(QKeyEvent *event) {
         } else {
             close();
         }
-    } else if (event->key() == Qt::Key_Return) {
-        writeLine(selected);
     }
 }
 

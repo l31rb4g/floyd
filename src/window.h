@@ -23,6 +23,7 @@ class Window: public QWidget {
         int readFile();
         void insertLine(int line_count, const char *line);
         void keyPressEvent(QKeyEvent *);
+        void keyReleaseEvent(QKeyEvent *);
         void clearSelected();
         void writeLine(int index);
         string getUserHome();
