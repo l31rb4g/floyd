@@ -1,4 +1,5 @@
 language: cpp
+install: apt install qt5 xdotools
 script:
     - mkdir build
     - cd build
