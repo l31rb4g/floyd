@@ -1,8 +1,8 @@
 language: cpp
 install: sudo apt -y install qt5-default
+compiler: g++
 script:
     - mkdir build
     - cd build
     - cmake ../src
     - make
-compiler: g++
