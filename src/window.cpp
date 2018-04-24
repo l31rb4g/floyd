@@ -36,7 +36,7 @@ Window::Window(QWidget *parent): QWidget(parent) {
     if (height == 0){
         height = line_height;
     }
-    setFixedSize(300, line_height);
+    setFixedSize(300, height);
     setLayout(layout);
 }
 
@@ -132,7 +132,7 @@ void Window::writeLine(int index){
             line = regex_replace(line, regex("\\\\n$"), "");
             cmd2 = " && xdotool key KP_Enter";
         }
-        string cmd = "xdotool type " + line + cmd2;
+        string cmd = "xdotool type \"" + line + "\"" + cmd2;
         popen(cmd.c_str(), "r");
     }
 }
