@@ -4,14 +4,10 @@
 ![](https://travis-ci.org/l31rb4g/floyd.svg?branch=master)
 
 ## Dependencies
-Floyd requires `xdotool`.
+Floyd requires `xdotool`, `Qt5` and `cmake`.
 
 #### Arch
-`sudo pacman -S xdotool`
-
-#### Debian
-`sudo apt install xdotool`
-
+`sudo pacman -S xdotool qt5-base cmake`
 
 ## Building
 ```shell
