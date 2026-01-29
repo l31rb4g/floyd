@@ -127,12 +127,7 @@ void Window::writeLine(int index){
     close();
     string line = lines[index];
     if (line != ""){
-        string cmd2;
-        if (regex_search(line, regex("\\\\n$"))){
-            line = regex_replace(line, regex("\\\\n$"), "");
-            cmd2 = " && xdotool key KP_Enter";
-        }
-        string cmd = "wtype \"" + line + "\"" + cmd2;
+        string cmd = "wtype \"" + line + "\"";
         popen(cmd.c_str(), "r");
     }
 }
